@@ -46,9 +46,8 @@ void sphere::setup(){
 }   
 void sphere::Draw(shader &s,glm::mat4 view,glm::mat4 projection){ 
     vao->bindVAO();
-    glm::mat4 model = glm::rotate(glm::mat4(1.0f),glm::radians(0.f),glm::vec3(0.0f,1.0f,0.0f));
-    model = glm::translate(model,glm::vec3(0.0f,10.0f,-1.0f));
-    model = glm::scale(model,glm::vec3(1.f));
+   glm::mat4 model = glm::mat4(1.0f);
+model = glm::translate(model, objPosition);
 
 
     glUniformMatrix4fv(glGetUniformLocation(s.getID(),"model"),1,GL_FALSE,glm::value_ptr(model));

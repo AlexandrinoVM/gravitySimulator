@@ -60,7 +60,7 @@ std::cout << "Diretório de trabalho atual: " << std::filesystem::current_path()
     float lastTime = SDL_GetTicks() / 1000.0f;
 
     terrarian terr;
-
+    terr.getSpData(sp.getData());
 
     bool running = true;
     SDL_Event event;
@@ -99,7 +99,7 @@ std::cout << "Diretório de trabalho atual: " << std::filesystem::current_path()
         //glUniformMatrix4fv(glGetUniformLocation(shad.getID(),"projection"),1,GL_FALSE,glm::value_ptr(projection));
         //glUniformMatrix4fv(glGetUniformLocation(shad.getID(),"view"),1,GL_FALSE,glm::value_ptr(view));
         glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
-       glEnable(GL_DEPTH_TEST);
+        glEnable(GL_DEPTH_TEST);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         shad.useProgram();
         terr.Draw(shad,view,projection);

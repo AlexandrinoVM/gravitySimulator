@@ -8,16 +8,23 @@
 #include "../headers/VAO.hpp"
 #include "../headers/EBO.hpp"
 #include "../headers/VBO.hpp"
-
+#include "../utils/sphereData.hpp"
 class sphere{
 public:
     sphere(float r,unsigned int stack,unsigned int sector): r(r),stack(stack),sector(sector){
         setup();
+        spdta.raio = r;
+        spdta.positions = objPosition;
+        
     };
     static constexpr double pi  =3.14159265359;
     void Draw(shader &s,glm::mat4 view,glm::mat4 projection);
     void close();
+    sp::sphereData &getData(){return spdta;};
 private:
+    glm::vec3 objPosition ={0.0f,10.0f,-1.0f};
+    sp::sphereData spdta;
+
     VAO *vao;
     EBO *ebo;
     VBO *vbo;

@@ -1,42 +1,54 @@
 #include "../headers/terrarian.hpp"
 
-terrarian::terrarian(){
- SetupData();
-}
-
+//terrarian::terrarian(){
+ //SetupData();
+//}
 void terrarian::SetupData(){
-    float init = -100.0f;
-    float end = 100.0f;
-    float collSize = 10.0f;
+    float init = -400.0f;
+    float end = 400.0f;
+    float collSize = 2.0f;
+    float initCel = init;
+    float endCel = initCel += collSize;
     unsigned int indice = 0;
+    bool negativex= false;
+    bool negativey =false;
     //z axis 380  360
-    //       400  400  
-    for(int i =init;i<=end; i+=collSize){
-        vertices.push_back(init);
-        vertices.push_back(0.0f);
-        vertices.push_back(i);
+    //       400  400
+    for(int x =init;x< end; x+=collSize){
+        for(int z =init;z<end;z+=collSize){
+            float targetx;
+            float targey;
+            float ysize =0;
+           double dx = x - datasp.positions.x;
+            double dz = z - datasp.positions.z;
+            double dist = sqrt(dx*dx + dz*dz);
 
-        vertices.push_back(end);
-        vertices.push_back(0.0f);
-        vertices.push_back(i);
+            if (dist <= datasp.raio) {
+                ysize = -5.0f;    
+            }
 
-        indices.push_back(indice);
-        indices.push_back(indice+1);
-        indice+=2;
-    }
-    //x axis
-    for(int j =init;j<=end; j+=collSize){
-        vertices.push_back(j);
-        vertices.push_back(0);
-        vertices.push_back(init);
+          
+std::cout << "datasp.positions: " << datasp.positions.x << ", " << datasp.positions.z << "\n";
 
-        vertices.push_back(j);
-        vertices.push_back(0);
-        vertices.push_back(end);
+            targetx = abs((x-collSize)- datasp.raio);
+            targey = abs((z-collSize)- datasp.raio);
 
-        indices.push_back(indice);
-        indices.push_back(indice+1);
-        indice+=2;
+            vertices.push_back(x);vertices.push_back(ysize);vertices.push_back(z);
+            vertices.push_back(x+collSize);vertices.push_back(ysize);vertices.push_back(z);
+            vertices.push_back(x+collSize);vertices.push_back(ysize);vertices.push_back(z+collSize);
+            vertices.push_back(x);vertices.push_back(ysize);vertices.push_back(z+collSize);
+
+
+
+            indices.push_back(indice);
+            indices.push_back(indice+1);
+            indices.push_back(indice+2);
+            indices.push_back(indice+2);
+            indices.push_back(indice+3);
+            indices.push_back(indice);
+            indice+=4;
+
+        }
     }
     std::cout << "Vertices count: " << vertices.size()/3 << "\n";
     std::cout << "Indices count: " << indices.size() << "\n";
