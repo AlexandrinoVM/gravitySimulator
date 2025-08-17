@@ -9,7 +9,7 @@
 #include "../glm/glm.hpp"
 #include "../glm/gtc/type_ptr.hpp"
 #include "../headers/terrarian.hpp"
-
+#include "../headers/sphere.hpp"
 
 float vertices[] = {
     -0.5f, -0.5f, 0.0f,
@@ -51,11 +51,12 @@ std::cout << "Diretório de trabalho atual: " << std::filesystem::current_path()
 
 
     shader shad;
+    shader spshad;
     shad.Loadshader("./shaders/s.vert","./shaders/s.frag");
-    //VAO vao;
-    //VBO vbo(vertices,sizeof(vertices));
-    //vbo.bindBuffer(GL_ARRAY_BUFFER);
-    //vao.VAOatribs(0,3,3*sizeof(float),0);
+    spshad.Loadshader("./shaders/spheres/sp.vert","./shaders/spheres/sp.frag");
+    
+    sphere sp(10,36,18);
+
     float lastTime = SDL_GetTicks() / 1000.0f;
 
     terrarian terr;
@@ -102,11 +103,15 @@ std::cout << "Diretório de trabalho atual: " << std::filesystem::current_path()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         shad.useProgram();
         terr.Draw(shad,view,projection);
+        shad.stop();
+        spshad.useProgram();
+        sp.Draw(spshad,view,projection);
         //vao.bindVAO();
         //glDrawArrays(GL_TRIANGLES,0,3);
-
+        spshad.stop();
         SDL_GL_SwapWindow(window);
     }
+    sp.close();
     terr.close();
     SDL_GL_DeleteContext(context);
     SDL_DestroyWindow(window);

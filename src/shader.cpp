@@ -90,3 +90,8 @@ void shader::crateProgram(const unsigned int vert,const unsigned int frag){
     }
 }
 
+void shader::stop(){
+    glUseProgram(0);
+
+}
+
