@@ -7,38 +7,22 @@ void terrarian::SetupData(){
     float init = -400.0f;
     float end = 400.0f;
     float collSize = 2.0f;
-    float initCel = init;
-    float endCel = initCel += collSize;
     unsigned int indice = 0;
-    bool negativex= false;
-    bool negativey =false;
     //z axis 380  360
     //       400  400
     for(int x =init;x< end; x+=collSize){
         for(int z =init;z<end;z+=collSize){
-            float targetx;
-            float targey;
-            float ysize =0;
-           double dx = x - datasp.positions.x;
-            double dz = z - datasp.positions.z;
-            double dist = sqrt(dx*dx + dz*dz);
-
-            if (dist <= datasp.raio) {
-                ysize = -5.0f;    
-            }
-
-          
-std::cout << "datasp.positions: " << datasp.positions.x << ", " << datasp.positions.z << "\n";
-
-            targetx = abs((x-collSize)- datasp.raio);
-            targey = abs((z-collSize)- datasp.raio);
-
-            vertices.push_back(x);vertices.push_back(ysize);vertices.push_back(z);
-            vertices.push_back(x+collSize);vertices.push_back(ysize);vertices.push_back(z);
-            vertices.push_back(x+collSize);vertices.push_back(ysize);vertices.push_back(z+collSize);
-            vertices.push_back(x);vertices.push_back(ysize);vertices.push_back(z+collSize);
 
 
+            glm::vec3 v1(x, 0.0f, z);
+            glm::vec3 v2(x+collSize, 0.0f, z);
+            glm::vec3 v3(x+collSize, 0.0f, z+collSize);
+            glm::vec3 v4(x, 0, z+collSize);
+
+            vertices.push_back(v1);
+            vertices.push_back(v2);
+            vertices.push_back(v3);
+            vertices.push_back(v4);
 
             indices.push_back(indice);
             indices.push_back(indice+1);
@@ -48,16 +32,39 @@ std::cout << "datasp.positions: " << datasp.positions.x << ", " << datasp.positi
             indices.push_back(indice);
             indice+=4;
 
+
         }
     }
+    for(const auto &map : datasp){
+        for(auto &v : vertices){
+            double dx = v.x - map.second.positions.x;
+            double dz = v.z - map.second.positions.z;
+            double dist = sqrt(dx*dx + dz*dz);
+
+            if (dist <= map.second.raio) {
+                v.y = -4.0f * (1.0f - dist / map.second.raio);
+            }
+            
+        }
+
+    }
+
     std::cout << "Vertices count: " << vertices.size()/3 << "\n";
     std::cout << "Indices count: " << indices.size() << "\n";
 
+    setuPbuffers();
+}
 
+
+void terrarian::setupYGrid(){
+
+}
+
+void terrarian::setuPbuffers(){
     vao = new VAO();
     vao->bindVAO();
     vbo = new VBO(vertices);
-    vao->VAOatribs(0,3,3*sizeof(float),0);
+    vao->VAOatribs(0,3,sizeof(glm::vec3),0);
     ebo = new EBO();
     ebo->setData(indices);
     vao->unbidVAO();

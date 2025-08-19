@@ -6,7 +6,8 @@ namespace sp{
     struct sphereData{
         float raio;
         glm::vec3 positions;
-        
+        int stacks;
+        int sectors;
     };
 }
 

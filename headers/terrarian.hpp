@@ -9,20 +9,23 @@
 #include <iostream>
 #include "../utils/sphereData.hpp"
 #include <math.h>
+#include  <map>
 class terrarian {
 public:
-    //terrarian();
     void Draw(shader &Shader,glm::mat4 view,glm::mat4 projection);
     void close(){delete(vao);delete(ebo);delete(vbo);};
-    void getSpData(sp::sphereData &data){datasp = data;SetupData();}; 
+    void getSpData(std::map<int,sp::sphereData> &data){datasp = data;SetupData();}; 
+    void setuPbuffers();
 private:
-    sp::sphereData datasp;
+    void setupYGrid();
+    std::map<int,sp::sphereData> datasp;
     void SetupData();
     VAO *vao;
     VBO *vbo;
     EBO *ebo;
-    std::vector<float> vertices;
+    std::vector<glm::vec3> vertices;
     std::vector<unsigned int> indices;
+    std::vector<float> yGridDeclines;
 };
 
 #endif

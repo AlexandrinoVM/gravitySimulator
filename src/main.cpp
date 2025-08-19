@@ -19,7 +19,6 @@ float vertices[] = {
 
 
 int main() {
-std::cout << "Diretório de trabalho atual: " << std::filesystem::current_path() << std::endl;
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         std::cerr << "Erro ao inicializar SDL: " << SDL_GetError() << "\n";
         return 1;
@@ -55,8 +54,9 @@ std::cout << "Diretório de trabalho atual: " << std::filesystem::current_path()
     shad.Loadshader("./shaders/s.vert","./shaders/s.frag");
     spshad.Loadshader("./shaders/spheres/sp.vert","./shaders/spheres/sp.frag");
     
-    sphere sp(10,36,18);
-
+    sphere sp;
+    sp.Createsphere(10,36,18,{0.0f,10.0f,-1.0f});
+    sp.Createsphere(5,16,8,{20.0f,10.0f,-1.0f});
     float lastTime = SDL_GetTicks() / 1000.0f;
 
     terrarian terr;
