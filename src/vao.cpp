@@ -5,10 +5,17 @@ VAO::VAO(){
 
     glBindVertexArray(vao);
 }
+
+
+
 void VAO::bindVAO(){
     glBindVertexArray(vao);
 }
-
+VAO::VAO(unsigned int &vaos){
+    glGenVertexArrays(1,&vaos);
+    vao = vaos;
+    glBindVertexArray(vao);
+}
 
 void VAO::unbidVAO(){
     glBindVertexArray(0);

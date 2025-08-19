@@ -7,6 +7,7 @@
 class EBO{
     public:
     EBO();
+    EBO(unsigned int &ebo);
     EBO(unsigned  *indices,int count);
     void setData(std::vector<unsigned int>indices);
     void bindEBO();

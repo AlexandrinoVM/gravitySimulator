@@ -5,6 +5,10 @@ EBO::EBO(){
     glGenBuffers(1,&ebo);
 }
 
+EBO::EBO(unsigned int &ebos){
+    glGenBuffers(1,&ebos);
+    ebo = ebos;
+}
 EBO::EBO(unsigned int *indices,int count){
     glGenBuffers(1,&ebo);
 

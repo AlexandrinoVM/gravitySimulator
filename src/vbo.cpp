@@ -17,6 +17,7 @@ VBO::VBO(std::vector<glm::vec3> &data){
 }
 
 
+
 VBO::VBO(std::vector<float> &data){
     glGenBuffers(1,&vbo);
 

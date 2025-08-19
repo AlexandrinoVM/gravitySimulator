@@ -10,6 +10,24 @@
 #include "../headers/EBO.hpp"
 #include "../headers/VBO.hpp"
 #include "../utils/sphereData.hpp"
+
+struct bufferMeshi{
+    VAO vao;
+    VBO vbo;
+    EBO ebo;
+    bufferMeshi(){};
+      bufferMeshi(std::vector<glm::vec3> &vertices, std::vector<unsigned int> &indices)
+        : vao(), vbo(), ebo()
+    {
+        vao.bindVAO();
+        vbo.vboSetData(vertices);
+        vao.VAOatribs(0, 3, sizeof(glm::vec3), 0); 
+        ebo.bindEBO();
+        ebo.setData(indices);
+        vao.unbidVAO();
+    }
+};
+
 class sphere{
 public:
     void Createsphere(float raio,unsigned int stacks,unsigned int sectors,glm::vec3 position){
@@ -36,7 +54,8 @@ private:
     VAO *vao;
     EBO *ebo;
     VBO *vbo;
-
+    std::map<int,bufferMeshi> buffes;
+    std::map<int,int> indicessize;
     void setup();
     float r;
     unsigned int stack,sector;
