@@ -106,6 +106,7 @@ int main() {
         shad.stop();
         spshad.useProgram();
         sp.Draw(spshad,view,projection);
+        terr.update(sp.getData());
         //vao.bindVAO();
         //glDrawArrays(GL_TRIANGLES,0,3);
         spshad.stop();

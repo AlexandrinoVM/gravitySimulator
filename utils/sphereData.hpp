@@ -8,6 +8,7 @@ namespace sp{
         glm::vec3 positions;
         int stacks;
         int sectors;
+        glm::vec3 currPos;
     };
 }
 

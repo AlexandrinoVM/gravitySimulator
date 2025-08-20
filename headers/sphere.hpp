@@ -2,6 +2,7 @@
 #define SPHERE_H
 #include <GL/glew.h>
 #include <vector>
+#include <SDL2/SDL.h>
 #include "../glm/glm.hpp"
 #include <math.h>
 #include <map>
@@ -35,10 +36,12 @@ public:
         spdta.raio = r;
         spdta.positions =position;
         spdta.sectors = sectors;
-        spdta.stacks = stacks; 
+        spdta.stacks = stacks;
+        spdta.currPos = position;
         spheres[iterator] = spdta;
         stack = stacks;
         sector = sectors;
+        
         iterator++;
         setup();
     };

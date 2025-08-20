@@ -16,6 +16,7 @@ public:
     void close(){delete(vao);delete(ebo);delete(vbo);};
     void getSpData(std::map<int,sp::sphereData> &data){datasp = data;SetupData();}; 
     void setuPbuffers();
+    void update(std::map<int,sp::sphereData> &data);
 private:
     void setupYGrid();
     std::map<int,sp::sphereData> datasp;

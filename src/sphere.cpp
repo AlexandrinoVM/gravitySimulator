@@ -55,12 +55,25 @@ void sphere::setup(){
 void sphere::Draw(shader &s,glm::mat4 view,glm::mat4 projection){ 
     //vao->bindVAO();
     int iterator =0;
-    for(const auto &sp:spheres){
+    for(auto &sp:spheres){
     buffes[iterator].vao.bindVAO();
         glm::mat4 model = glm::mat4(1.0f);
-        model = glm::translate(model, sp.second.positions);
 
-
+        glm::vec3 sunPos = {0.0f,10.0f,-1.0f};
+        float time = SDL_GetTicks() / 1000.0f;       
+        float angle = glm::radians(50.0f) * time;
+        if(sp.second.positions == sunPos){
+        model = glm::translate(model, sunPos);
+        }else{
+        glm::vec3 orbitRadios = sp.second.positions; 
+        model = glm::translate(model, sunPos);
+        model = glm::rotate(model,angle,glm::vec3(0.0,1.0f,0.0f));
+        model = glm::translate(model, orbitRadios);
+        model = glm::rotate(model,angle * 2.0f,glm::vec3(0.0,1.0f,0.0f));
+        
+        glm::vec4 newPos = model * glm::vec4(0.0f,0.0f,0.0f,1.0f);
+        sp.second.currPos = glm::vec3(newPos);
+        }
         glUniformMatrix4fv(glGetUniformLocation(s.getID(),"model"),1,GL_FALSE,glm::value_ptr(model));
         glUniformMatrix4fv(glGetUniformLocation(s.getID(),"projection"),1,GL_FALSE,glm::value_ptr(projection));
         glUniformMatrix4fv(glGetUniformLocation(s.getID(),"view"),1,GL_FALSE,glm::value_ptr(view));

@@ -55,7 +55,25 @@ void terrarian::SetupData(){
     setuPbuffers();
 }
 
+void terrarian::update(std::map<int,sp::sphereData> &data){
+    for(auto &map : datasp){
+        for(auto &dt : data){
+            if(map.second.positions != dt.second.currPos){
+                for(auto &v : vertices){
+                    double dx = v.x - map.second.positions.x;
+                    double dz = v.z - map.second.positions.z;
+                    double dist = sqrt(dx*dx + dz*dz);
 
+                    if (dist <= map.second.raio) {
+                        v.y = -4.0f * (1.0f - dist / map.second.raio);
+                    }
+                }
+                map.second.positions = dt.second.currPos;
+                setuPbuffers();
+            }
+        } 
+    }
+}
 void terrarian::setupYGrid(){
 
 }
