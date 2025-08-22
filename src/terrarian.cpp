@@ -4,8 +4,8 @@
  //SetupData();
 //}
 void terrarian::SetupData(){
-    float init = -400.0f;
-    float end = 400.0f;
+    float init = -100.0f;
+    float end = 100.0f;
     float collSize = 2.0f;
     unsigned int indice = 0;
     //z axis 380  360
@@ -49,8 +49,6 @@ void terrarian::SetupData(){
 
     }
 
-    std::cout << "Vertices count: " << vertices.size()/3 << "\n";
-    std::cout << "Indices count: " << indices.size() << "\n";
 
     setuPbuffers();
 }

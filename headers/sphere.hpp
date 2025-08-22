@@ -28,7 +28,6 @@ struct bufferMeshi{
         vao.unbidVAO();
     }
 };
-
 class sphere{
 public:
     void Createsphere(float raio,unsigned int stacks,unsigned int sectors,glm::vec3 position){
@@ -46,17 +45,16 @@ public:
         setup();
     };
     static constexpr double pi  =3.14159265359;
-    void Draw(shader &s,glm::mat4 view,glm::mat4 projection);
+    void Draw(shader &s,glm::mat4 view,glm::mat4 projection,float currentTime);
+    void Draw(shader &s,glm::mat4 view,glm::mat4 projection,float curTime,int orbit,int obj);
     void close();
     std::map<int,sp::sphereData>&getData(){return spheres;};
 private:
     glm::vec3 objPosition ={0.0f,10.0f,-1.0f};
+   
     sp::sphereData spdta;
     unsigned int iterator =0;
     std::map<int,sp::sphereData> spheres;
-    VAO *vao;
-    EBO *ebo;
-    VBO *vbo;
     std::map<int,bufferMeshi> buffes;
     std::map<int,int> indicessize;
     void setup();

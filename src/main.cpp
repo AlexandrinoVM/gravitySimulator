@@ -105,14 +105,14 @@ int main() {
         terr.Draw(shad,view,projection);
         shad.stop();
         spshad.useProgram();
-        sp.Draw(spshad,view,projection);
-        terr.update(sp.getData());
+        sp.Draw(spshad,view,projection,currentTime,0,0);
+        sp.Draw(spshad,view,projection,currentTime,0,1);
         //vao.bindVAO();
+        terr.update(sp.getData());
         //glDrawArrays(GL_TRIANGLES,0,3);
         spshad.stop();
         SDL_GL_SwapWindow(window);
     }
-    sp.close();
     terr.close();
     SDL_GL_DeleteContext(context);
     SDL_DestroyWindow(window);
